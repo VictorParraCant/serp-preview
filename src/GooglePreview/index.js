@@ -1,68 +1,76 @@
 import React from 'react'
-import styled from 'styled-components'
-import {default as PT} from 'prop-types'
+import { default as PT } from 'prop-types'
+import Radium, { Style } from 'radium'
 
-const Wrapper = styled.div`
-  position: relative;
-  font-family: arial, sans-serif;
-  text-align: left;
-  max-width: 600px;
-`
-const Title = styled.h3`
-  display: inline-block;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 1.3;
-  margin: 0 0 3px 0;
-  padding: 4px 0 0;
-`
-const Description = styled.div`
-  color: #3C4043;
-  line-height: 1.58;
-  font-size: 14px;
-  word-wrap: break-word;
-
-  & em {
-    font-weight: bold;
-    font-style: normal;
+const styles = {
+  wrapper: {
+    position: 'relative',
+    fontFamily: ['arial', 'sans- serif'],
+    textAlign: 'left',
+    maxWidth: '600px'
+  },
+  title: {
+    display: 'inline-block',
+    fontWeight: 'normal',
+    fontSize: '20px',
+    lineHeight: 1.3,
+    margin: '0 0 3px 0',
+    padding: '4px 0 0',
+  },
+  description: {
+    color: '#3C4043',
+    lineHeight: 1.58,
+    fontSize: '14px',
+    wordWrap: 'break-word'
+  },
+  em: {
+    fontWeight: 'bold',
+    fontStyle: 'normal'
+  },
+  url: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    paddingTop: '1px',
+    paddingBottom: '1px',
+    lineHeight: 1.3,
+    display: 'inline-block',
+    fontSize: '14px',
+    color: '#3C4043',
+    fontStyle: 'normal'
+  },
+  link: {
+    textDecoration: 'none',
+    color: '#1a0dab',
+    outline: 0,
+    ':hover': {
+      textDecoration: 'underline'
+    }
   }
-`
-const Url = styled.cite`
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  line-height: 1.3;
-  display: inline-block;
-  font-size: 14px;
-  color: #3C4043;
-  font-style: normal;
-  -webkit-text-size-adjust: none;
-`
-const Link = styled.a`
-  text-decoration: none;
-  color: #1a0dab;
-  outline: 0;
+}
 
-  &:hover h3 {
-    text-decoration: underline;
-  }
-`
+const LinkComponent = ({ href, children }) => {
+  return (
+    <a href={href}>{children}</a>
+  );
+}
+const Link = Radium(LinkComponent);
 
 const formatUrl = (url) => url
   .replace(/https?:\/\//, '')
   .replace(/\//g, ' › ')
 
-const GooglePreview = ({ title, description, url, link }) =>
-  <Wrapper>
+const GooglePreview = ({ title, description, url, link }) => (
+  <div style={styles.wrapper}>
+    <Style rules={{ 'em': styles.em }} />
     <Link href={link}>
       <br />
-      <Title>{title}</Title>
-      <Url>{formatUrl(url)}</Url>
+      <h3 style={[styles.title, styles.link]}>{title}</h3>
+      <span style={styles.url}>{formatUrl(url)}</span>
     </Link>
-    <Description>{description}</Description>
-  </Wrapper>
+    <div style={styles.description}>{description}</div>
+  </div>
+)
 
 GooglePreview.defaultProps = {
   description: null,

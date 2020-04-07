@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import GooglePreview from './'
+import GooglePreviewStyle from './';
 
 const testResults = [
   {
@@ -20,11 +20,11 @@ const testResults = [
   }
 ]
 
-storiesOf('Google')
+storiesOf('GoogleStyle')
   .add('Default', () => (
     testResults.map(({ title, description, url }, idx) =>
       <figure style={{marginBottom: '27px'}} key={idx}>
-        <GooglePreview title={title} description={description} url={url} />
+        <GooglePreviewStyle title={title} description={description} url={url} />
       </figure>
     )
   ))

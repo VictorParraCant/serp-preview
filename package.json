@@ -64,6 +64,7 @@
     "preview"
   ],
   "dependencies": {
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "radium": "^0.26.0"
   }
 }
